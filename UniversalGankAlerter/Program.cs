@@ -86,7 +86,7 @@ namespace UniversalGankAlerter
             _previewCircle = new PreviewCircle();
 
             _menu = new Menu("Universal GankAlerter", "universalgankalerter", true);
-            _sliderRadius = new MenuItem("range", "Trigger range").SetValue(new Slider(3000, 500, 10000));
+            _sliderRadius = new MenuItem("range", "Trigger range").SetValue(new Slider(3000, 500, 15000));
             _sliderRadius.ValueChanged += SliderRadiusValueChanged;
             _sliderCooldown = new MenuItem("cooldown", "Trigger cooldown (sec)").SetValue(new Slider(10, 0, 60));
             _sliderLineDuration = new MenuItem("lineduration", "Line duration (sec)").SetValue(new Slider(10, 0, 20));
