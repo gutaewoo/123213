@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
@@ -22,7 +22,7 @@ namespace UniversalGankAlerter
         private MenuItem _allyJunglerOnly;
         private MenuItem _showChampionNames;
         private MenuItem _drawMinimapLines;
-        private MenuItem _normalPing;
+        private MenuItem _dangerPing;
         private Menu _enemies;
         private Menu _allies;
 
@@ -36,9 +36,9 @@ namespace UniversalGankAlerter
             get { return _sliderCooldown.GetValue<Slider>().Value; }
         }
 
-        public bool normalPing
+        public bool DangerPing
         {
-            get { return _normalPing.GetValue<bool>(); }
+            get { return _dangerPing.GetValue<bool>(); }
         }
 
         public int LineDuration
@@ -94,7 +94,7 @@ namespace UniversalGankAlerter
             _allyJunglerOnly = new MenuItem("allyjungleronly", "Warn jungler only (smite)").SetValue(true);
             _showChampionNames = new MenuItem("shownames", "Show champion name").SetValue(true);
             _drawMinimapLines = new MenuItem("drawminimaplines", "Draw minimap lines").SetValue(false);
-            _normalPing = new MenuItem("dangerping", "Danger Ping (local)").SetValue(false);
+            _dangerPing = new MenuItem("dangerping", "Danger Ping (local)").SetValue(false);
             _enemies = new Menu("Enemies", "enemies");
             _enemies.AddItem(_enemyJunglerOnly);
 
@@ -106,7 +106,7 @@ namespace UniversalGankAlerter
             _menu.AddItem(_sliderLineDuration);
             _menu.AddItem(_showChampionNames);
             _menu.AddItem(_drawMinimapLines);
-            _menu.AddItem(_normalPing);
+            _menu.AddItem(_dangerPing);
             _menu.AddSubMenu(_enemies);
             _menu.AddSubMenu(_allies);
             foreach (Obj_AI_Hero hero in ObjectManager.Get<Obj_AI_Hero>())
@@ -272,9 +272,9 @@ namespace UniversalGankAlerter
             if (Game.ClockTime - _lastEnter > Program.Instance().Cooldown && enabled)
             {
                 _lineStart = Game.ClockTime;
-                if (Program.Instance().normalPing && _hero.IsEnemy && !_hero.IsDead)
+                if (Program.Instance().DangerPing && _hero.IsEnemy && !_hero.IsDead)
                 {
-                    Game.ShowPing(PingCategory.normal,_hero, true);
+                    Game.ShowPing(PingCategory.Danger,_hero, true);
                 }
             }
             _lastEnter = Game.ClockTime;
